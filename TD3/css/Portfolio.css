@@ -1,0 +1,88 @@
+.sidebar{
+    width: 22%;
+    border-right: solid;
+    border-width: 5px 20px;
+    border-color: rgb(241, 241, 241);
+
+}
+.main {
+    margin-left: 22%;
+}
+
+.path {
+    padding-top: 50px;
+    padding-left: 8px;
+}
+.path #style{
+    position: absolute;
+    height: 50px;
+    width: 240px;
+    background-color: rgb(255, 238, 0);
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 3px;
+    color: #fff;
+    font-size: 35px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.path h4{
+    position: relative;
+    padding-left: 18rem;
+    font-size: 24px;
+    margin-top: 1rem;
+    opacity: 0.3;
+}
+
+.tab {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px ;
+}
+
+.btn-active {
+    background: orange !important;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+    background: white;
+    margin-right: 5px;
+    font-size: 1.2rem;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+
+@media (max-width: 472px) {
+    .gallery img {
+        width: 100%;
+        margin-bottom: 4%;
+    }
+}
+@media (min-width: 750px) {
+    .gallery img {
+        width: 30%;
+        margin: 1%;
+    }
+}
+
+@media (min-width: 472px) and (max-width: 768px) {
+    .gallery img {
+        width: 40%;
+        margin: 1%;
+    }
+}
+
