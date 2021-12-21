@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Position</title>
+    <style type="text/CSS">
+        .wrapper{
+            position: relative;
+            height: 100vh;
+            background-color: rgb(167, 167, 167);
+        }
+        .flying-box{
+            background: red;
+            width: 200px;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 1.5rem;
+         
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="flying-box">
+            I'm in center 😂
+        </div>
+    </div>
+</body>
+</html>
