@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+          position: relative;
+          margin: 0;
+        }
+        .videoCamera{
+          background-color:rgb(109, 104, 104) ;
+          width: 500px;
+          height: 580px;
+          margin: 10px 50px 0px 100px;
+        }
+        #canvas {
+          background-color: #fff;
+          width: 480px;
+          height: 500px;
+          border: solid 10px rgb(109, 104, 104);
+  
+        } 
+        .container {
+          color: white;
+          text-align: center;
+        }
+      </style>
+</head>
+<body>
+  <video autoplay="true" id="video" style="display: none"></video>
+  <div class="videoCamera">
+    <div>
+      <canvas id="canvas" width="500" height="500" ></canvas>
+    </div>
+    <div class="container">
+      <div> Canvas : Please show your face on me</div>
+      <input onclick="change()" type="button" value="Play" id="start-camera"></input>
+    </div>
+  </div>
+
+</body>
+<script>
+    let camera_button = document.querySelector("#start-camera");
+    let video = document.querySelector("#video");
+    let canvas = document.querySelector("#canvas");
+    
+    camera_button.addEventListener('click', async function() {
+           let stream = await navigator.mediaDevices.getUserMedia({ 
+             video: true, 
+             audio: false,
+           });
+          video.srcObject = stream;
+    });
+    
+    camera_button .addEventListener('click', function loop() {
+          canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+          setTimeout(loop,1000 / 30)
+    });
+    document.getElementById("start-camera").addEventListener("click", function() {
+     
+        if (camera_button.value == "Play") {
+            camera_button.value = "Pause";
+            camera_button.innerHTML = "Pause";
+        }else if(camera_button.value == "Pause"){
+          camera_button.value = "Play";
+          camera_button.value.innerHTML = "Play";    
+          camera_button.style.display = "inline-block";
+          video.srcObject = null;
+          const ctx = canvas.getContext("2d");
+          ctx.fillStyle = "white";
+          ctx.fillRect(0, 0, 500, 375);
+        }
+                  
+    });
+
+    </script>
+</html>
