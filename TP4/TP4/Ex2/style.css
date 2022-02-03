@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    padding-top: 20px;
+}
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    border: 1px solid;
+    height: 600px;
+    width: 400px;
+}
+
+.title {
+    padding: 20px;
+    color: rgb(48, 221, 57);
+}
+
+.box1 {
+    background: #eee;
+    height: 200px;
+    padding-top: 10px;
+}
+
+.show-latest-generate{
+    background: black;
+    text-align: center;  
+    padding: 20px; 
+}
+
+.show-latest-generate .background h1{
+    color: white;
+}
+
+.show-latest-generate .bottom {
+    padding-top: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.btn {
+    padding: 10px 25px;
+    margin: 0px 2px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-generate {
+    background: #000;
+    color: white;
+}
+
+.btn:active {
+    background: #000;
+    color: white;
+}
+
+
+.box2 .list {
+    max-height: 280px;
+    padding: 10px;
+    overflow-y: scroll;
+    list-style: none;
+}
+
+.box2 .list .color-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.box2 .color-box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+    margin-left: 10px;
+}

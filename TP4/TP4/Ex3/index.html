@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navigation Bar</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav id="header">
+          <div class="logo">
+            <h1>NAV-BAR</h1>
+          </div>
+  
+          <div class="page">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Projects</a>
+            <a href="#">Contact</a>
+          </div>
+  
+          <div class="social-icon">
+            <i class="fa fa-facebook"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-linkedin"></i>
+          </div>
+  
+          <div class="menu">
+            <button id="menu" type="button">
+              <i id="icon" class="icon fa fa-bars"></i>
+            </button>
+  
+            <div class="toggle" id="navigator">
+              <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+              <ul class="social">
+                <li>
+                  <i class="fa fa-facebook"></i>
+                  <i class="fa fa-twitter"></i>
+                  <i class="fa fa-linkedin"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+  
+        <div id="main" class="main"></div>
+      </div>
+
+      <script>
+            const menuBtn = document.getElementById("menu");
+            const navigatorMenu = document.getElementById("navigator");
+            const iconMenu = document.getElementById("icon");
+
+            menuBtn.addEventListener("click", () => {
+            console.log("click");
+            iconMenu.classList.toggle("icon-rotate");
+            navigatorMenu.classList.toggle("toggle");
+            });
+      </script>
+</body>
+</html>
