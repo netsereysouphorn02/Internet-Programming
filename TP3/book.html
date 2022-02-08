@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>CRUD</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .container{
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+    }
+    .block1{
+      width: 25%;
+            border: solid 5px rgb(161, 158, 158);
+            margin-left: 15px;
+            margin-right: 15px;
+            box-shadow: 0 4px 8px 1px rgba(0,0,0,0.7);
+            border-radius: 9px;
+            padding: 10px;
+    }
+    .block2{
+      width: 74%;
+            margin-right: 15px;
+            border: solid 5px rgb(161, 158, 158);
+            box-shadow: 0 4px 8px 1px rgba(0,0,0,0.7);
+            border-radius: 9px;
+    }
+    .inp_text{
+      margin: 0 0 10px 25px;
+            border: solid 1px;
+            border-radius: 5px ;
+            width: 200px;
+            height: 30px;
+    }
+    .inp_title{
+      margin: 0 0 0 25px;
+    }
+    .inputspace{
+      margin-top: 20px;
+      margin-bottom: 50px;
+    }
+
+    .block2 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .block2>.card{
+      width: 22.5%;
+      height: auto;
+      margin: 2% 0 1% 2%;
+      border: solid 3px rgba(1,0,0,1);
+    }
+    
+
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="block1">
+
+      <div class="d-grid gap-2">
+        <center>
+          <button class="btn btn-info edit-message" style="display: none; padding: 5px;" >Edit information here </button>
+        </center>
+      </div>
+
+      <div class="inputspace">
+        <span class="inp_title">Name</span><br>
+        <input class="inp_text  bookName"  type="text" placeholder="C programming"><br>
+        <span class="inp_title">Category</span><br>
+        <input class="inp_text  bookCategory"  type="text" placeholder="Codeing"><br>
+        <span class="inp_title">Price(Riel)</span><br>
+        <input class="inp_text  bookPrice"  type="text" placeholder="1000"><br><br>
+        <center>
+          <button type="button" class="btn btn-success submit" >Add</button>
+          <button type="button" class="btn btn-info edit-completed" style="display: none;"> Edit</button>
+        </center>
+      </div>
+  
+    </div>
+    <div class="block2">
+    </div>
+</div>
+
+
+
+<script>
+$(function () {
+
+//default book
+var book = [
+{name:"bookI1", price: 1500, category:"English"},
+{name:"bookI2", price: 1500, category:"English"},
+{name:"bookI3", price: 1500, category:"English"},
+{name:"bookI4", price: 1500, category:"English"}
+            
+]
+//List book to block2
+list_book();
+//count number for add new book
+var number_book = book.length;
+
+$(".submit").click(function(){
+  var bookName = $(".bookName").val();
+  var bookCategory = $(".bookCategory").val();
+  var bookPrice = $(".bookPrice").val();
+  //used function add book
+  add_book(bookName,bookCategory,bookPrice);
+  //set value to blank
+  clear_value_input();
+});
+$(document).on("click",".delete",function(){
+  var id= $(this).attr("name");
+  $(".no"+id).hide();
+});
+$(document).on("click",".edit",function(){
+  var id= $(this).attr("name");
+ 
+  // First I need to hide submit and display edit button 
+  $(".edit-completed").css("display","");
+  $(".edit-message").css("display","");
+
+  $(".submit").css("display","none");
+  //This part I want to append the value to place that we add
+  //but I creat form not good for read value back. so I need to split it to make it look like real
+  var ReadName = $(".no"+id+" .name").text();
+  var ReadPrice = $(".no"+id+" .price").text();
+  var ReadCategory = $(".no"+id+" .category").text();
+
+  var Splitname = ReadName.split(":");
+  var Splitprice = ReadPrice.split(" ");
+  var SplitCategory = ReadCategory.split(" ");
+  
+  var NameAppend = Splitname[1];
+  var PriceAppend = Splitprice[1];
+  var CategoryAppend = SplitCategory[1];
+
+  $(".bookName").val(NameAppend);
+  $(".bookCategory").val(CategoryAppend);
+  $(".bookPrice").val(PriceAppend);
+
+
+  //When button is click I need to change
+    $(".edit-completed").click(function(){
+    $(".edit-completed").css("display","none");
+    $(".edit-message").css("display","none");
+
+    $(".submit").css("display","");
+   
+
+    var NewbookName = $(".bookName").val();
+    var NewbookCategory = $(".bookCategory").val();
+    var NewbookPrice = $(".bookPrice").val();
+
+    edit_book(id,NewbookName,NewbookPrice,NewbookCategory);
+    clear_value_input();
+
+  })
+
+
+});
+
+function edit_book(id,NewName,NewPrice,NewCategory){
+  $(".no"+id+" .name").html("Name: "+NewName);
+  $(".no"+id+" .price").html("Price: "+NewPrice);
+  $(".no"+id+" .category").html("Category: "+NewCategory);
+}
+function add_book(Name,Category,Price){
+  number_book++;
+  let book = getBooks();
+  var new_book =  ' <div class="card no'+number_book+'"> '+              
+                  ' <div class="group_btn" style="margin-top:7px;">'+
+                  '     <button type="button" class="edit" name="'+number_book+'">Edit</button>'+
+                  '     <button type="button" class="delete" name="'+number_book+'">Delete</button>'+
+                  '  </div>'+
+                  '<Center>'+
+                    ' <img src="book.png" class="card-img-top"> '+
+                  '</Center>'+
+                  '<div class="card-body">'+
+                    '  <div class="list-group">'+
+                      '    <a class="name" aria-current="true">'+
+                        '      <span>Name: '+Name+'<br></span>'+
+                        '    </a>'+
+                        '    <a class="price"><span>Price: '+Price+' Riel <br></span></a>'+
+                        '   <a class="category"><span>Category: '+Category+' </span></a>'+
+                        ' </div>'+
+
+                        '</div>'+
+                        ' </div>';
+              
+  $(".block2").append(new_book);
+}
+function list_book(){
+    let storageBooks = getBooks();
+    let books = storageBooks ? storageBooks : []
+  var temp = '';
+    for(var i in book){
+      temp += ' <div class="card no'+i+'"> '+              
+              ' <div class="group_btn" style="margin-top:7px;">'+
+              '     <button type="button" class="edit" name="'+i+'">Edit</button>'+
+              '     <button type="button" class="delete" name="'+i+'">Delete</button>'+
+              '  </div>'+
+              '<Center>'+
+                ' <img src="book.png" class="card-img-top"> '+
+              '</Center>'+
+              '<div class="card-body">'+
+              '  <div class="list-group">'+
+              '    <a class="ame" aria-current="true">'+
+              '      <span>Name: '+book[i].name+'<br></span>'+
+              '    </a>'+
+              '    <a  class="price"><span>Price: '+book[i].price+' Riel <br></span></a>'+
+              '   <a class="category"><span>Category: '+book[i].category+' </span></a>'+
+              ' </div>'+
+
+              '</div>'+
+              ' </div>';
+    }
+    setBooks(book);
+    $(".block2").append(temp);
+}
+        function getBooks() {
+              let book = JSON.parse(localStorage.getItem("book"));
+              return book;
+          }
+          function setBooks(book) {
+              localStorage.setItem("book", JSON.stringify(book));
+          }
+function clear_value_input(){
+  $(".bookName").val("");
+  $(".bookCategory").val("");
+  $(".bookPrice").val("");
+}
+
+})
+
+
+
+</script>
+</body>
+</html>

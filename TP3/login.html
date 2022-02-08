@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 20%;
+            max-width: 1500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .block-login {
+            max-width: 500px;
+            width: 500px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form {
+            line-height: 25px;
+            width: 100%;
+        }
+
+        #email {
+            width: 490px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        #password {
+            width: 490px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        #login {
+            width: 494px;
+            background: rgba(34, 184, 34, 0.719);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #login-form {
+            display: "inline-block";
+        }
+
+        #logged {
+            display: none;
+            max-width: 500px;
+            width: 500px;
+            padding: 50px;
+        }
+
+        #logout {
+            background: #000;
+            color: white;
+            padding: 10px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="block" id="login-form">
+          <div>
+            <ul class="list">
+              <li>Given login info:</li>
+              <li>Email: gic@gmail.com</li>
+              <li>Pwd: Gic123</li>
+            </ul>
+          </div>
+  
+          <div class="block-login">
+            <div class="image">
+              <img width="128" src="icon.png" alt="" />
+            </div>
+  
+            <form id="login-Form" class="form">
+              <label for="email">Email</label> <br />
+              <input type="email" id="email" required placeholder="Enter email" /><br/>
+              <label for="password">Password</label> <br />
+              <input type="password" id="password" required placeholder="Enter password"/><br />
+  
+              <input type="submit" value="Login" id="login" />
+            </form>
+          </div>
+        </div>
+  
+        <div id="logged">
+          <h2>Welcome to Home Page</h2>
+          <p>You will be automatically logged out.</p>
+          <p>Keep refreshing page</p>
+          <button id="logout">Logout</button>
+        </div>
+      </div>
+  
+      <script>
+        checkCookie();
+  
+        function setCookie(coName, coValue, exdays) {
+          const date = new Date();
+          date.setTime(date.getTime() + exdays);
+          let expires = "expires=" + date.toUTCString();
+          document.cookie = coName + "=" + coValue + ";" + expires + ";path=/";
+        }
+  
+        function getCookie(coName) {
+          let name = coName + "=";
+          let co = document.cookie.split(";");
+          for (let i = 0; i < co.length; i++) {
+            let c = co[i];
+            while (c.charAt(0) == " ") {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return " ";
+        }
+  
+        function checkCookie() {
+          let user = getCookie("email");
+          if (user != "") {
+            $("#loginform").hide();
+            $("#logged").show();
+          } else {
+            $("#loginform").show();
+            $("#logged").hide();
+          }
+        }
+  
+        $(document).on("submit", "#loginForm", function(in) {
+          in.preventDefault();
+          var email = in.target.email.value;
+          var password = in.target.password.value;
+  
+          setCookie("email", email, 50000);
+          checkCookie();
+        });
+  
+        $(document).on("click", "#logout", function() {
+          setCookie("email", "", -50000);
+          checkCookie();
+        });
+      </script>
+</body>
+</html>
