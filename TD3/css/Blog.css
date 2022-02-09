@@ -73,7 +73,7 @@ img {
     padding-bottom: 20px;
 }
 
-@media (min-width: 750px) {
+@media (min-width: 768px) {
     .gallery  .box {
         width: 46%;
         margin: 1%;
@@ -81,7 +81,7 @@ img {
     }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 768px) {
     .gallery  .box {
         width: 100%;
         margin: 4%;

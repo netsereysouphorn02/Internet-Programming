@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Exercise5</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        .container {
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td,th {
+            border: 1px solid rgb(121, 119, 119);
+            padding: 0.5rem;
+        }
+        .error {
+            display: none;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loading">
+          <div>
+            <div></div>
+          </div>
+        </div>
+  
+        <div id="table" class="table"></div>
+        <div id="error" class="error"><center>Something went Wrong! <br> Can't load data Please check your internet connection.</center> </div>
+      </div>
+  
+      <script>
+        const loading = document.getElementById("loading"); 
+        const table_show = document.getElementById("table");
+        const error = document.getElementById("error");
+
+        showLoading(false);
+        showTable(true);
+        showError(false);
+
+        function showLoading(bool) {
+        if (bool) loading.style.display = "inline-block";
+        else loading.style.display = "none";
+        }
+
+        function showTable(bool) {
+        if (bool) table_show.style.display = "inline-block";
+        else table_show.style.display = "none";
+        }
+
+        function showError(bool) {
+        if (bool) error.style.display = "inline-block";
+        else error.style.display = "none";
+        }
+
+        const renderData = (items) => {
+        let html = ``;
+        html =
+            html +
+            `<table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Website</th>
+                    <th>Company</th>
+                </tr>
+            </thead>
+            <tbody>
+            `;
+            for (let i = 0; i < items.length; i++) {
+                html =
+                html +
+                `
+                <tr>
+                    <td>${items[i].name}</td>
+                    <td>${items[i].username}</td>
+                    <td>${items[i].email}</td>
+                    <td>${items[i].address.street}</td>
+                    <td>${items[i].phone}</td>
+                    <td>${items[i].website}</td>
+                    <td>${items[i].company.name}</td>
+                </tr>
+                `;
+            }
+            html = html + `</tbody></table>`;
+
+        table_show.innerHTML = html;
+        };
+
+        const api = axios.create({
+        baseURL: "https://jsonplaceholder.typicode.com/",
+        timeout: 2000,
+        });
+
+        const getData = () => {
+        showLoading(true);
+
+        setTimeout(() => {
+            api
+            .get("users")
+            .then((re) => {
+                console.log("get data", re);
+                showLoading(false);
+                renderData(re.data);
+            })
+            .catch((err) => {
+                console.log("err", err);
+                showLoading(false);
+                showError(true);
+            });
+        }, 1000);
+        };
+
+        getData();
+      </script>
+</body>
+</html>

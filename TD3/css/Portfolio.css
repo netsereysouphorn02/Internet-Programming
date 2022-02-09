@@ -66,20 +66,20 @@
 }
 
 
-@media (max-width: 472px) {
+@media (max-width: 426px) {
     .gallery img {
         width: 100%;
         margin-bottom: 4%;
     }
 }
-@media (min-width: 750px) {
+@media (min-width: 768px) {
     .gallery img {
         width: 30%;
         margin: 1%;
     }
 }
 
-@media (min-width: 472px) and (max-width: 768px) {
+@media (min-width: 426px) and (max-width: 768px) {
     .gallery img {
         width: 40%;
         margin: 1%;
